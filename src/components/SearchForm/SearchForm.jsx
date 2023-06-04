@@ -2,7 +2,7 @@ import { FiSearch } from 'react-icons/fi';
 import { BtnSearch, Select, SearchFormStyled } from './SearchForm.styled';
 import { useState } from 'react';
 
-export const SearchForm = ({ queary }) => {
+export const SearchForm = ({ queary, setSearchParams }) => {
   const [value, setValue] = useState('');
   const handleChange = e => {
     setValue(e.target.value);
@@ -11,6 +11,7 @@ export const SearchForm = ({ queary }) => {
   const handleSubmit = e => {
     e.preventDefault();
     queary(value);
+    setSearchParams({ query: value });
   };
   return (
     <SearchFormStyled onSubmit={handleSubmit}>
