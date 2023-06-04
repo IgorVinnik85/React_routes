@@ -1,14 +1,20 @@
 import { Grid, GridItem } from 'components';
+import { useLocation, Link } from 'react-router-dom';
 
 export const CountryList = ({ countries }) => {
-  console.log(countries)
+  const location = useLocation();
+
   return (
     <Grid>
-      {countries.map(({id, flag, country}) => {
+      {countries.map(({ id, flag, country }) => {
         return (
-          <GridItem key={id}><img src={flag} alt={country} /></GridItem>
-        )
+          <GridItem key={id}>
+            <Link to={`/country/${id}`} state={{ location }}>
+              <img src={flag} alt={country} />
+            </Link>
+          </GridItem>
+        );
       })}
-</Grid>
-  )
+    </Grid>
+  );
 };
