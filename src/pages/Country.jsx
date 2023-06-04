@@ -1,5 +1,5 @@
 import { Section, Container, CountryInfo, Loader } from 'components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
 import { fetchCountry } from '../service/country-service';
 
@@ -9,7 +9,6 @@ export const Country = () => {
   const [loading, setLoading] = useState(false);
 
   const { countryId } = useParams();
-
   const location = useLocation();
 
   useEffect(() => {
@@ -19,7 +18,6 @@ export const Country = () => {
       try {
         const data = await fetchCountry(countryId);
         setCountry(data);
-        console.log(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -28,13 +26,13 @@ export const Country = () => {
     };
 
     getCountry();
-  }, []);
+  }, [countryId]);
 
   const { flag, capital, countryName, id, languages, population } = country;
-
+console.log(location)
   return (
     <Section>
-      <Link to={ location.state??'/'} >Back</Link>
+      <Link to={ location.state.from??'/'} >Back</Link>
 
       <Container>
         <CountryInfo
